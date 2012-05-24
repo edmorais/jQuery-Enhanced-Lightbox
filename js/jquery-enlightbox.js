@@ -2,11 +2,11 @@
  * jQuery Enhanced Lightbox plugin
  * This jQuery plugin is based on jQuery lightBox 0.5 by Leandro Vieira (http://leandrovieira.com/projects/jquery/lightbox/).
  * @name jquery-enlightbox.js
- * @author Eduardo Morais - http://www.eduardomorais.com - with mods by Eduardo Morais
- * @version 1.0
- * @date July 19, 2011
+ * @author Eduardo Morais - http://www.eduardomorais.com
+ * @version 1.1
+ * @date February 19, 2012
  * @category jQuery plugin
- * @copyright (c) 2011 Eduardo Morais, based on the work of Leandro Vieira Pinho (leandrovieira.com)
+ * @copyright (c) 2011-2012 Eduardo Morais, based on the work of Leandro Vieira Pinho (leandrovieira.com)
  * @license CCAttribution-ShareAlike 3.0 Unported - http://creativecommons.org/licenses/by-sa/3.0/
  * @example Visit http://www.eduardomorais.com/code/lightbox/ for more informations about this jQuery plugin
  */
@@ -30,7 +30,7 @@
 			imageBtnPrev:			'img/lightbox-btn-prev.png',	// (string) Path and the name of the prev button image
 			imageBtnNext:			'img/lightbox-btn-next.png',	// (string) Path and the name of the next button image
 			imageBtnClose:			'img/lightbox-btn-close.png',	// (string) Path and the name of the close btn
-			imageBlank:				'img/gfx/lightbox-blank.gif',	// (string) Path and the name of a blank image (one pixel)
+			imageBlank:				'img/lightbox-blank.gif',	// (string) Path and the name of a blank image (one pixel)
 			imageCurZoom:			'img/lightbox-zoom',			// (string) Path and the name of the zoom mouse cursor w/ NO FILE EXTENSION 
 																	// 			-- we need both the .cur and .png for it to work on all browsers
 																	
@@ -279,17 +279,23 @@
 		function _show_image_data() {
 			var imgTitle =  settings.imageArray[settings.activeImage][1];
 			var imgDesc =  settings.imageArray[settings.activeImage][2];
+			var showBox = 0;
 		
-			$('#lightbox-container-image-data-box').slideDown('fast');
 			$('#lightbox-image-details-caption').hide();
 			if ( imgTitle ) {
 				if ( !imgDesc ) {
 					imgDesc = '';
 				}
+				$('#lightbox-container-image-data-box').slideDown('fast');
+				showBox = 1;
 				$('#lightbox-image-details-caption').html('<span class="lightbox-title">' + imgTitle + '</span>' + imgDesc).fadeIn();
 			}
 			// If we have a image set, display 'Image X of X'
 			if ( settings.imageArray.length > 1 ) {
+				if (showBox == 0) {
+					$('#lightbox-container-image-data-box').slideDown('fast');
+					showBox = 1;
+				}
 				$('#lightbox-image-details-currentNumber').html(settings.txtImage + ' ' + ( settings.activeImage + 1 ) + ' ' + settings.txtOf + ' ' + settings.imageArray.length).fadeIn(1500);
 			}		
 		}
